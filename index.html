@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SoftWaves — Soluciones Digitales Inteligentes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    /* ═══════════════════════════════════════
+       VARIABLES — DARK (default)
+    ═══════════════════════════════════════ */
+    :root {
+      --purple:       #6B21A8;
+      --purple-mid:   #8B3FCC;
+      --purple-light: #A855F7;
+      --gold:         #D4A017;
+      --yellow:       #EAB308;
+
+      --bg:           #0A0A12;
+      --bg-card:      #12121E;
+      --bg-card2:     #1A1A2E;
+      --nav-bg:       rgba(10,10,18,0.88);
+      --text:         #F1F0FF;
+      --text-muted:   #9B9BB8;
+      --border:       rgba(107,33,168,0.30);
+      --border-hover: rgba(139,63,204,0.70);
+      --shadow:       rgba(0,0,0,0.5);
+      --grid-line:    rgba(255,255,255,0.04);
+      --hero-glow:    rgba(107,33,168,0.25);
+      --hero-glow2:   rgba(234,179,8,0.08);
+      --scroll-track: #0A0A12;
+
+      --grad:         linear-gradient(135deg,#6B21A8 0%,#A855A0 50%,#EAB308 100%);
+      --grad-text:    linear-gradient(90deg,#BF7FFF 0%,#E8B84B 100%);
+      --radius:       16px;
+      --transition:   0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ═══════════════════════════════════════
+       VARIABLES — LIGHT
+    ═══════════════════════════════════════ */
+    [data-theme="light"] {
+      --bg:           #F5F3FF;
+      --bg-card:      #FFFFFF;
+      --bg-card2:     #EDE9FE;
+      --nav-bg:       rgba(245,243,255,0.92);
+      --text:         #1A1A2E;
+      --text-muted:   #5B5B78;
+      --border:       rgba(107,33,168,0.18);
+      --border-hover: rgba(107,33,168,0.55);
+      --shadow:       rgba(107,33,168,0.12);
+      --grid-line:    rgba(107,33,168,0.06);
+      --hero-glow:    rgba(107,33,168,0.10);
+      --hero-glow2:   rgba(212,160,23,0.06);
+      --scroll-track: #F5F3FF;
+      --grad-text:    linear-gradient(90deg,#7B2FBE 0%,#B8860B 100%);
+    }
+
+    /* hero light-mode: fondo oscuro detrás del logo */
+    [data-theme="light"] .hero-logo-wrap {
+      background: radial-gradient(circle, rgba(80,30,140,0.45) 0%, rgba(90,35,150,0.28) 55%, transparent 80%);
+      box-shadow: 0 0 60px 16px rgba(107,33,168,0.12);
+    }
+    [data-theme="light"] .hero-logo-wrap img {
+      filter: drop-shadow(0 4px 20px rgba(180,100,255,0.5));
+    }
+    [data-theme="light"] .orbit { border-color: rgba(107,33,168,0.22); }
+    [data-theme="light"] .orbit-dot {
+      background: linear-gradient(135deg,#A855F7,#D4A017);
+      box-shadow: 0 0 8px rgba(168,85,247,0.6);
+    }
+
+    /* ═══════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background var(--transition), color var(--transition);
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--scroll-track); }
+    ::-webkit-scrollbar-thumb { background: var(--purple-mid); border-radius: 3px; }
+
+    /* ═══════════════════════════════════════
+       SCROLL ANIMATIONS
+    ═══════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(48px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.from-left  { transform: translateX(-56px); }
+    .reveal.from-right { transform: translateX(56px); }
+    .reveal.scale-up   { transform: scale(0.88); }
+    .reveal.visible {
+      opacity: 1;
+      transform: translate(0) scale(1);
+    }
+    /* stagger siblings */
+    .stagger > * { opacity: 0; transform: translateY(36px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .stagger > *.visible { opacity: 1; transform: translateY(0); }
+
+    /* ═══════════════════════════════════════
+       UTILITIES
+    ═══════════════════════════════════════ */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .grad-text  { background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .section { padding: 100px 0; }
+    .section-label { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--purple-mid); margin-bottom: 12px; }
+    .section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.2; margin-bottom: 20px; }
+    .section-sub { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; }
+    .divider { border: none; height: 1px; background: var(--border); }
+
+    .btn-primary {
+      display: inline-block; padding: 14px 32px; border-radius: 50px;
+      background: var(--grad); color: #fff; font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-3px); box-shadow: 0 12px 32px rgba(107,33,168,0.4); }
+    .btn-outline {
+      display: inline-block; padding: 13px 30px; border-radius: 50px;
+      background: transparent; color: var(--text); font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; border: 2px solid var(--border); cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+
+    /* ═══════════════════════════════════════
+       THEME TOGGLE
+    ═══════════════════════════════════════ */
+    .theme-toggle {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.25s;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { border-color: var(--border-hover); transform: rotate(20deg); }
+
+    /* ═══════════════════════════════════════
+       NAVBAR
+    ═══════════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 14px 0;
+      backdrop-filter: blur(20px);
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { height: 38px; object-fit: contain; }
+    .nav-logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+
+    /* ═══════════════════════════════════════
+       MOBILE MENU
+    ═══════════════════════════════════════ */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: var(--bg); flex-direction: column;
+      align-items: center; justify-content: center; gap: 24px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--text); text-decoration: none; font-size: 1.5rem; font-weight: 600; transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--purple-mid); }
+    .mobile-menu .close-btn { position: absolute; top: 24px; right: 24px; font-size: 1.6rem; cursor: pointer; color: var(--text-muted); background: none; border: none; }
+
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      position: relative; overflow: hidden; padding-top: 80px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--hero-glow) 0%, transparent 70%),
+                  radial-gradient(ellipse 40% 40% at 80% 80%, var(--hero-glow2) 0%, transparent 60%);
+      transition: background var(--transition);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 60px 60px;
+      transition: background-image var(--transition);
+    }
+    .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px;
+      padding: 6px 16px; border-radius: 50px; border: 1px solid var(--border);
+      background: rgba(107,33,168,0.1); font-size: 0.8rem; color: var(--purple-mid); font-weight: 500;
+      transition: border-color var(--transition);
+    }
+    .hero-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--purple-mid); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(139,63,204,0.6)} 50%{opacity:0.6;box-shadow:0 0 0 6px rgba(139,63,204,0)} }
+    .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 800; line-height: 1.1; margin-bottom: 24px; }
+    .hero p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 36px; max-width: 520px; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-stats { display: flex; gap: 36px; margin-top: 52px; flex-wrap: wrap; }
+    .hero-stat strong { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; font-weight: 800; }
+    .hero-stat p { color: var(--text-muted); font-size: 0.78rem; }
+
+    .hero-visual { position: relative; display: flex; justify-content: center; align-items: center; }
+    .hero-logo-wrap {
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(107,33,168,0.18) 0%, var(--hero-glow2) 60%, transparent 100%);
+      display: flex; align-items: center; justify-content: center;
+      animation: float 6s ease-in-out infinite;
+      position: relative; z-index: 1;
+    }
+    .hero-logo-wrap img { width: 240px; height: 240px; object-fit: contain; filter: drop-shadow(0 0 32px rgba(139,63,204,0.4)); }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
+    .orbit { position: absolute; border-radius: 50%; border: 1px dashed rgba(107,33,168,0.28); animation: spin linear infinite; }
+    .orbit-1 { width: 370px; height: 370px; animation-duration: 22s; }
+    .orbit-2 { width: 460px; height: 460px; animation-duration: 34s; animation-direction: reverse; }
+    @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    .orbit-dot { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: var(--grad); top: -5px; left: 50%; margin-left: -5px; box-shadow: 0 0 10px rgba(139,63,204,0.8); }
+
+    /* ═══════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════ */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 36px; }
+    .value-card {
+      padding: 20px; border-radius: var(--radius);
+      background: var(--bg-card); border: 1px solid var(--border);
+      transition: border-color 0.25s, transform 0.25s, background var(--transition);
+    }
+    .value-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+    .value-icon { font-size: 1.5rem; margin-bottom: 10px; }
+    .value-card h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 5px; }
+    .value-card p { font-size: 0.78rem; color: var(--text-muted); }
+    .mission-vision { display: flex; flex-direction: column; gap: 18px; }
+    .mv-card {
+      padding: 28px; border-radius: var(--radius);
+      background: var(--bg-card2); border: 1px solid var(--border);
+      position: relative; overflow: hidden;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .mv-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--grad); }
+    .mv-card .mv-label { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--purple-mid); font-weight:700; margin-bottom:8px; }
+    .mv-card h3 { font-family:'Space Grotesk',sans-serif; font-size:1.05rem; font-weight:700; margin-bottom:8px; }
+    .mv-card p { color:var(--text-muted); font-size:0.88rem; }
+
+    /* ═══════════════════════════════════════
+       SERVICES
+    ═══════════════════════════════════════ */
+    .services-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 22px; margin-top: 60px; }
+    .service-card {
+      padding: 32px; border-radius: var(--radius);
+      background: var(--bg-card); border: 1px solid var(--border);
+      transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .service-card:hover { border-color: var(--border-hover); transform: translateY(-5px); box-shadow: 0 20px 48px var(--shadow); }
+    .service-card.featured { border-color: rgba(212,160,23,0.3); background: var(--bg-card2); }
+    [data-theme="light"] .service-card { box-shadow: 0 2px 16px var(--shadow); }
+    .service-tag { display:inline-block; padding:4px 12px; border-radius:50px; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; background:rgba(107,33,168,0.12); color:var(--purple-mid); margin-bottom:20px; }
+    .service-tag.gold { background:rgba(212,160,23,0.12); color:var(--gold); }
+    .service-icon { font-size:2.2rem; margin-bottom:16px; display:block; }
+    .service-card h3 { font-family:'Space Grotesk',sans-serif; font-size:1.2rem; font-weight:700; margin-bottom:12px; }
+    .service-card p { color:var(--text-muted); font-size:0.88rem; margin-bottom:18px; }
+    .service-price { font-size:0.82rem; color:var(--text-muted); }
+    .service-price strong { font-size:1.05rem; color:var(--text); }
+    .service-list { list-style:none; margin-bottom:22px; }
+    .service-list li { font-size:0.82rem; color:var(--text-muted); padding:5px 0; border-bottom:1px solid rgba(107,33,168,0.07); display:flex; gap:8px; align-items:flex-start; }
+    .service-list li::before { content:'✓'; color:var(--purple-mid); font-weight:700; flex-shrink:0; }
+
+    /* ═══════════════════════════════════════
+       PROJECTS / CHARTS
+    ═══════════════════════════════════════ */
+    .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-bottom:40px; }
+    .kpi-card {
+      padding:26px; border-radius:var(--radius); text-align:center;
+      background:var(--bg-card); border:1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .kpi-card:hover { border-color:var(--border-hover); transform:translateY(-3px); }
+    [data-theme="light"] .kpi-card { box-shadow:0 2px 12px var(--shadow); }
+    .kpi-val { font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:800; margin-bottom:4px; }
+    .kpi-lbl { font-size:0.78rem; color:var(--text-muted); }
+    .charts-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+    .chart-card {
+      padding:26px; border-radius:var(--radius);
+      background:var(--bg-card); border:1px solid var(--border);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    [data-theme="light"] .chart-card { box-shadow:0 2px 12px var(--shadow); }
+    .chart-card h4 { font-family:'Space Grotesk',sans-serif; font-weight:600; margin-bottom:4px; }
+    .chart-card p { font-size:0.8rem; color:var(--text-muted); margin-bottom:18px; }
+    .chart-card canvas { max-height:260px; }
+    .chart-full { grid-column:1/-1; }
+
+    /* ═══════════════════════════════════════
+       TEAM
+    ═══════════════════════════════════════ */
+    .team-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-top:60px; }
+    .team-card {
+      border-radius:var(--radius); overflow:hidden;
+      background:var(--bg-card); border:1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .team-card:hover { border-color:var(--border-hover); transform:translateY(-5px); box-shadow:0 20px 48px var(--shadow); }
+    [data-theme="light"] .team-card { box-shadow:0 2px 12px var(--shadow); }
+    .team-photo {
+      width:100%; aspect-ratio:1;
+      background:linear-gradient(135deg,rgba(107,33,168,0.15),rgba(212,160,23,0.08));
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+      border-bottom:1px solid var(--border); overflow:hidden;
+    }
+    .team-photo img { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
+    .team-photo .avatar-icon { font-size:3rem; opacity:0.3; }
+    .team-photo .photo-hint { font-size:0.7rem; color:var(--text-muted); opacity:0.7; }
+    .team-info { padding:20px; }
+    .team-info h4 { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.92rem; margin-bottom:4px; }
+    .team-info .role { font-size:0.75rem; color:var(--purple-mid); font-weight:600; margin-bottom:8px; }
+    .team-info .degree { font-size:0.73rem; color:var(--text-muted); line-height:1.5; }
+
+    /* ═══════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════ */
+    .contact-wrap { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; margin-top:60px; }
+    .contact-item { display:flex; gap:16px; margin-bottom:26px; }
+    .contact-item-icon {
+      width:48px; height:48px; border-radius:12px; flex-shrink:0;
+      background:rgba(107,33,168,0.1); border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center; font-size:1.2rem;
+      transition:border-color var(--transition), background var(--transition);
+    }
+    .contact-item-text h5 { font-weight:600; font-size:0.88rem; margin-bottom:2px; }
+    .contact-item-text p { color:var(--text-muted); font-size:0.82rem; }
+    .contact-form {
+      background:var(--bg-card); border:1px solid var(--border);
+      border-radius:var(--radius); padding:36px;
+      transition:background var(--transition), border-color var(--transition);
+    }
+    [data-theme="light"] .contact-form { box-shadow:0 4px 24px var(--shadow); }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .form-group { margin-bottom:16px; }
+    .form-group label { display:block; font-size:0.8rem; font-weight:500; color:var(--text-muted); margin-bottom:7px; }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width:100%; padding:12px 16px;
+      background:rgba(107,33,168,0.05); border:1px solid var(--border);
+      border-radius:10px; color:var(--text); font-family:inherit; font-size:0.88rem;
+      transition:border-color 0.2s, background 0.2s;
+    }
+    [data-theme="light"] .form-group input,
+    [data-theme="light"] .form-group textarea,
+    [data-theme="light"] .form-group select { background:#F8F5FF; }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { outline:none; border-color:var(--purple-mid); }
+    .form-group textarea { resize:vertical; min-height:110px; }
+    .form-group select option { background:var(--bg-card); color:var(--text); }
+    .form-success {
+      display:none; padding:14px; border-radius:10px; margin-top:14px;
+      background:rgba(107,33,168,0.12); border:1px solid var(--purple-mid);
+      font-size:0.88rem; color:var(--text); text-align:center;
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    footer {
+      background:var(--bg-card); border-top:1px solid var(--border);
+      padding:60px 0 28px;
+      transition:background var(--transition), border-color var(--transition);
+    }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; margin-bottom:48px; }
+    .footer-brand p { font-size:0.83rem; color:var(--text-muted); max-width:260px; line-height:1.7; margin-top:14px; }
+    .footer-col h5 { font-weight:600; font-size:0.83rem; margin-bottom:14px; color:var(--text); }
+    .footer-col ul { list-style:none; }
+    .footer-col li { margin-bottom:9px; }
+    .footer-col a { color:var(--text-muted); text-decoration:none; font-size:0.83rem; transition:color 0.2s; }
+    .footer-col a:hover { color:var(--text); }
+    .footer-bottom { border-top:1px solid var(--border); padding-top:22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+    .footer-bottom p { font-size:0.78rem; color:var(--text-muted); }
+    .social-links { display:flex; gap:10px; }
+    .social-link {
+      width:34px; height:34px; border-radius:8px;
+      background:rgba(107,33,168,0.08); border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--text-muted); text-decoration:none; font-size:0.8rem; font-weight:600;
+      transition:all 0.2s;
+    }
+    .social-link:hover { background:rgba(107,33,168,0.2); color:var(--text); border-color:var(--border-hover); }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width:900px) {
+      .hero-inner { grid-template-columns:1fr; text-align:center; }
+      .hero-visual { display:none; }
+      .hero-actions, .hero-stats { justify-content:center; }
+      .about-grid, .contact-wrap { grid-template-columns:1fr; }
+      .services-grid, .charts-grid { grid-template-columns:1fr; }
+      .chart-full { grid-column:auto; }
+      .team-grid { grid-template-columns:repeat(2,1fr); }
+      .kpi-row { grid-template-columns:repeat(2,1fr); }
+      .footer-grid { grid-template-columns:1fr 1fr; }
+      .nav-links, .nav-right > .btn-primary { display:none; }
+      .hamburger { display:flex; }
+    }
+    @media (max-width:560px) {
+      .team-grid, .values-grid { grid-template-columns:1fr; }
+      .form-row { grid-template-columns:1fr; }
+      .footer-grid { grid-template-columns:1fr; }
+      .kpi-row { grid-template-columns:1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" onclick="toggleMenu()">✕</button>
+  <a href="#inicio"    onclick="toggleMenu()">Inicio</a>
+  <a href="#nosotros"  onclick="toggleMenu()">Nosotros</a>
+  <a href="#servicios" onclick="toggleMenu()">Servicios</a>
+  <a href="#proyectos" onclick="toggleMenu()">Proyectos</a>
+  <a href="#equipo"    onclick="toggleMenu()">Equipo</a>
+  <a href="#contacto"  onclick="toggleMenu()">Contacto</a>
+</div>
+
+<!-- ══ NAVBAR ══ -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#inicio" class="nav-logo">
+      <img src="assets/logo-color-icon.png" alt="SoftWaves logo" onerror="this.style.display='none'" />
+      <span class="nav-logo-text">SoftWaves</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#equipo">Equipo</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" title="Cambiar tema" onclick="toggleTheme()">🌙</button>
+      <a href="#contacto" class="btn-primary" style="padding:10px 22px;font-size:0.85rem;">Solicitar info</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container hero-inner">
+    <div>
+      <div class="hero-badge reveal">Ameca, Jalisco · Fundada 2025</div>
+      <h1 class="reveal" style="transition-delay:0.1s">
+        Tecnología empresarial<br /><span class="grad-text">a tu medida</span>
+      </h1>
+      <p class="reveal" style="transition-delay:0.2s">Desarrollamos software personalizado para PyMEs mexicanas con arquitectura de microservicios: más rápido, más económico, sin comprometer la calidad.</p>
+      <div class="hero-actions reveal" style="transition-delay:0.3s">
+        <a href="#servicios" class="btn-primary">Ver servicios</a>
+        <a href="#contacto"  class="btn-outline">Contáctanos</a>
+      </div>
+      <div class="hero-stats reveal" style="transition-delay:0.45s">
+        <div class="hero-stat">
+          <strong><span class="grad-text">60%</span></strong>
+          <p>más rápido que<br/>desarrollo desde cero</p>
+        </div>
+        <div class="hero-stat">
+          <strong><span class="grad-text">4.9M+</span></strong>
+          <p>PyMEs sin software<br/>especializado</p>
+        </div>
+        <div class="hero-stat">
+          <strong><span class="grad-text">3</span></strong>
+          <p>modelos de<br/>contratación flexibles</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="orbit orbit-1"><div class="orbit-dot"></div></div>
+      <div class="orbit orbit-2"><div class="orbit-dot"></div></div>
+      <div class="hero-logo-wrap">
+        <img src="assets/logo-color-full.png" alt="SoftWaves" onerror="this.style.display='none'" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section class="section" id="nosotros">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-label reveal">Quiénes somos</p>
+        <h2 class="section-title reveal" style="transition-delay:0.1s">Soluciones digitales <span class="grad-text">inteligentes</span></h2>
+        <p class="section-sub reveal" style="transition-delay:0.15s;margin-bottom:16px">SoftWaves es una empresa de desarrollo de software especializada en PyMEs mexicanas. Construimos sistemas a la medida reutilizando módulos de backend probados, personalizando el frontend para cada cliente.</p>
+        <p class="reveal" style="transition-delay:0.2s;color:var(--text-muted);font-size:0.9rem;margin-bottom:36px">Nuestra arquitectura de microservicios reutilizables nos permite entregar proyectos en <strong style="color:var(--text)">30–60% menos tiempo</strong> que el desarrollo tradicional, sin sacrificar calidad ni personalización.</p>
+        <div class="values-grid stagger">
+          <div class="value-card">
+            <div class="value-icon">🚀</div>
+            <h4>Innovación continua</h4>
+            <p>Adoptamos tecnologías emergentes para ofrecer soluciones de vanguardia.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">🤝</div>
+            <h4>Compromiso con el cliente</h4>
+            <p>El éxito del cliente es nuestro éxito. Atención personalizada en cada proyecto.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">🔍</div>
+            <h4>Transparencia total</h4>
+            <p>Comunicación abierta y honesta en cada fase del proyecto.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">⚡</div>
+            <h4>Agilidad</h4>
+            <p>Entregas iterativas, feedback constante y adaptación rápida.</p>
+          </div>
+        </div>
+      </div>
+      <div class="mission-vision stagger">
+        <div class="mv-card">
+          <div class="mv-label">Misión</div>
+          <h3>Empoderar a las PyMEs con tecnología accesible</h3>
+          <p>Soluciones de software personalizadas, ágiles y accesibles, construidas sobre arquitectura de microservicios moderna que entrega tecnología de alto nivel en tiempos reducidos y costos competitivos.</p>
+        </div>
+        <div class="mv-card">
+          <div class="mv-label">Visión</div>
+          <h3>Referente en desarrollo para PyMEs al 2028</h3>
+          <p>Ser la empresa de desarrollo de software de referencia para las PyMEs de México y América Latina, reconocida por calidad, velocidad de entrega y solidez de sus soluciones.</p>
+        </div>
+        <div class="mv-card">
+          <div class="mv-label">Propuesta de valor</div>
+          <h3>El mejor ROI en software a la medida</h3>
+          <p>Menor tiempo de desarrollo, costos reducidos, escalabilidad por módulos y soporte continuo con mensualidades accesibles para PyMEs mexicanas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ══ SERVICES ══ -->
+<section class="section" id="servicios">
+  <div class="container">
+    <p class="section-label reveal">Productos y servicios</p>
+    <h2 class="section-title reveal" style="transition-delay:0.1s">Todo lo que tu empresa<br/><span class="grad-text">necesita para crecer</span></h2>
+    <p class="section-sub reveal" style="transition-delay:0.15s">Cuatro líneas de productos con modelos de contratación claros y flexibles, diseñados para adaptarse al presupuesto y necesidades de cada empresa.</p>
+
+    <div class="services-grid stagger" style="margin-top:56px">
+      <div class="service-card">
+        <div class="service-tag">Proyecto cerrado</div>
+        <span class="service-icon">🏗️</span>
+        <h3>Desarrollo a la Medida</h3>
+        <p>Software completamente personalizado. Al concluir, el cliente es propietario absoluto del código fuente, documentación y derechos de autor.</p>
+        <ul class="service-list">
+          <li>50% al inicio · 50% en entrega</li>
+          <li>Código fuente + documentación técnica</li>
+          <li>Transmisión formal de derechos de autor</li>
+          <li>Manual de usuario incluido</li>
+          <li>Reuniones de seguimiento mensuales</li>
+        </ul>
+        <div class="service-price">Desde <strong>$15,000</strong> hasta <strong>$120,000 MXN</strong></div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-tag">SaaS mensual</div>
+        <span class="service-icon">☁️</span>
+        <h3>Software como Servicio</h3>
+        <p>El cliente renta el sistema. SoftWaves administra, actualiza y respalda la información. Incluye opción de compra total en cualquier momento.</p>
+        <ul class="service-list">
+          <li>30% al inicio + cuota mensual</li>
+          <li>Mantenimiento, respaldos y actualizaciones</li>
+          <li>Hosting y monitoreo incluidos</li>
+          <li>Opción de compra total disponible</li>
+          <li>Capacitación de uso incluida</li>
+        </ul>
+        <div class="service-price">Desde <strong>$2,500</strong> hasta <strong>$12,000 MXN/mes</strong></div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-tag">Por hora</div>
+        <span class="service-icon">💡</span>
+        <h3>Consultoría Tecnológica</h3>
+        <p>Asesoría especializada para identificar necesidades tecnológicas, detectar ineficiencias y proponer soluciones antes de invertir en desarrollo.</p>
+        <ul class="service-list">
+          <li>Diagnóstico gratuito de 30 min</li>
+          <li>Análisis de procesos actuales</li>
+          <li>Auditoría de sistemas existentes</li>
+          <li>Propuesta de solución personalizada</li>
+          <li>Reporte ejecutivo entregable</li>
+        </ul>
+        <div class="service-price">Desde <strong>$600</strong> hasta <strong>$1,500 MXN/hora</strong></div>
+      </div>
+
+      <div class="service-card featured">
+        <div class="service-tag gold">⭐ Premium</div>
+        <span class="service-icon">🤖</span>
+        <h3>Automatización con Inteligencia Artificial</h3>
+        <p>Integración de IA para automatizar tareas, análisis de datos, predicción de ventas y atención automática a clientes.</p>
+        <ul class="service-list">
+          <li>Complemento sin costo de integración para clientes SoftWaves</li>
+          <li>Licencia independiente disponible</li>
+          <li>Predicción de ventas y análisis de datos</li>
+          <li>Respuestas automáticas a clientes</li>
+          <li>Escala según volumen de uso</li>
+        </ul>
+        <div class="service-price">Desde <strong>$1,500</strong> hasta <strong>$8,000 MXN/mes</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ══ PROJECTS / CHARTS ══ -->
+<section class="section" id="proyectos">
+  <div class="container">
+    <p class="section-label reveal">Portafolio & métricas</p>
+    <h2 class="section-title reveal" style="transition-delay:0.1s">Proyectos realizados &<br/><span class="grad-text">resultados comprobados</span></h2>
+    <p class="section-sub reveal" style="transition-delay:0.15s;margin-bottom:48px">Datos de nuestra trayectoria de proyectos, distribución por sector y proyecciones de crecimiento.</p>
+
+    <div class="kpi-row stagger">
+      <div class="kpi-card">
+        <div class="kpi-val grad-text">24</div>
+        <div class="kpi-lbl">Proyectos entregados</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val grad-text">18</div>
+        <div class="kpi-lbl">Clientes activos</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val grad-text">60%</div>
+        <div class="kpi-lbl">Reducción en tiempo de entrega</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-val grad-text">100%</div>
+        <div class="kpi-lbl">Satisfacción del cliente</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card reveal">
+        <h4>Proyectos por sector</h4>
+        <p>Distribución por industria</p>
+        <canvas id="chartSector"></canvas>
+      </div>
+      <div class="chart-card reveal" style="transition-delay:0.15s">
+        <h4>Distribución de ingresos por servicio</h4>
+        <p>Porcentaje según tipo de contratación</p>
+        <canvas id="chartIngresos"></canvas>
+      </div>
+      <div class="chart-card chart-full reveal" style="transition-delay:0.1s">
+        <h4>Proyección de ingresos — Año 1 (MXN)</h4>
+        <p>Ingresos vs costos fijos mensuales · escenario conservador</p>
+        <canvas id="chartProyeccion"></canvas>
+      </div>
+      <div class="chart-card reveal">
+        <h4>Crecimiento de clientes</h4>
+        <p>Clientes acumulados por mes</p>
+        <canvas id="chartClientes"></canvas>
+      </div>
+      <div class="chart-card reveal" style="transition-delay:0.15s">
+        <h4>Tecnologías más utilizadas</h4>
+        <p>Stack tecnológico en proyectos entregados</p>
+        <canvas id="chartTech"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ══ TEAM ══ -->
+<section class="section" id="equipo">
+  <div class="container">
+    <p class="section-label reveal">Equipo fundador</p>
+    <h2 class="section-title reveal" style="transition-delay:0.1s">Las personas detrás de<br/><span class="grad-text">SoftWaves</span></h2>
+    <p class="section-sub reveal" style="transition-delay:0.15s">Un equipo multidisciplinario que combina ingeniería, administración, diseño y gestión de talento.</p>
+
+    <div class="team-grid stagger">
+      <div class="team-card">
+        <div class="team-photo">
+          <!-- Foto de Ignacio: coloca tu imagen en assets/ignacio.jpg -->
+          <img src="assets/ignacio.jpg" alt="Ignacio Andrade" onerror="this.outerHTML='<span class=\'avatar-icon\'>👤</span><span class=\'photo-hint\'>Foto por agregar</span>'" />
+        </div>
+        <div class="team-info">
+          <h4>Ing. Ignacio Andrade Salazar</h4>
+          <div class="role">CEO & Fundador</div>
+          <div class="degree">Lic. en Administración · Ing. en Electrónica y Computación · M.I.S. en curso</div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo">
+          <img src="assets/martin.jpg" alt="Martín Andrade" onerror="this.outerHTML='<span class=\'avatar-icon\'>👤</span><span class=\'photo-hint\'>Foto por agregar</span>'" />
+        </div>
+        <div class="team-info">
+          <h4>Mtro. Martín J. Andrade Salazar</h4>
+          <div class="role">Jefe de Desarrollo Backend & Frontend</div>
+          <div class="degree">Lic. en Tecnologías de la Información · Maestro en Ingeniería de Software</div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo">
+          <img src="assets/edgar.jpg" alt="Edgar Guerrero" onerror="this.outerHTML='<span class=\'avatar-icon\'>👤</span><span class=\'photo-hint\'>Foto por agregar</span>'" />
+        </div>
+        <div class="team-info">
+          <h4>Ing. Edgar G. Guerrero Santana</h4>
+          <div class="role">Diseño & Marketing</div>
+          <div class="degree">Ing. en Electrónica y Computación · Certificación en Diseño UI/UX</div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo">
+          <img src="assets/eveley.jpg" alt="Eveley Ortiz" onerror="this.outerHTML='<span class=\'avatar-icon\'>👤</span><span class=\'photo-hint\'>Foto por agregar</span>'" />
+        </div>
+        <div class="team-info">
+          <h4>Ing. Evelyn Michel Ortiz Fajardo</h4>
+          <div class="role">Recursos Humanos & Gestión de Personal</div>
+          <div class="degree">Ing. en Instrumentación Electrónica y Nanosensores · Diplomado en RRHH</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ══ CONTACT ══ -->
+<section class="section" id="contacto">
+  <div class="container">
+    <p class="section-label reveal">Contáctanos</p>
+    <h2 class="section-title reveal" style="transition-delay:0.1s">¿Listo para dar el salto<br/><span class="grad-text">digital?</span></h2>
+    <p class="section-sub reveal" style="transition-delay:0.15s">Cuéntanos sobre tu proyecto. La primera sesión de diagnóstico es <strong>gratuita</strong>. Respondemos en menos de 24 horas.</p>
+
+    <div class="contact-wrap">
+      <div class="contact-info reveal from-left">
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-text">
+            <h5>Ubicación</h5>
+            <p>Ameca, Jalisco (Región Valles)<br/>México · Operación 100% remota</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📧</div>
+          <div class="contact-item-text">
+            <h5>Correo electrónico</h5>
+            <p>softwaves.contacto@gmail.com</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">💬</div>
+          <div class="contact-item-text">
+            <h5>WhatsApp</h5>
+            <p>Disponible para consultas rápidas<br/>y coordinación de reuniones</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🕐</div>
+          <div class="contact-item-text">
+            <h5>Horario de atención</h5>
+            <p>Lunes a Viernes · 9:00 – 18:00 hrs<br/>Zona horaria: CST (UTC-6)</p>
+          </div>
+        </div>
+        <div style="padding:22px;border-radius:var(--radius);background:rgba(107,33,168,0.08);border:1px solid var(--border);margin-top:8px">
+          <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.7">
+            <strong style="color:var(--text)">Primera sesión gratuita</strong><br/>
+            Agenda una reunión de diagnóstico de 30 minutos sin costo. Analizamos las necesidades de tu empresa y proponemos la mejor solución tecnológica.
+          </p>
+        </div>
+      </div>
+
+      <div class="contact-form reveal from-right" style="transition-delay:0.1s">
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;margin-bottom:4px;">Solicitar información</h3>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:24px">Completa el formulario y te contactamos a la brevedad.</p>
+        <form id="contactForm" onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre *</label>
+              <input type="text" name="nombre" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-group">
+              <label>Empresa</label>
+              <input type="text" name="empresa" placeholder="Nombre de tu empresa" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Correo electrónico *</label>
+              <input type="email" name="correo" placeholder="correo@empresa.com" required />
+            </div>
+            <div class="form-group">
+              <label>Teléfono / WhatsApp</label>
+              <input type="tel" name="telefono" placeholder="+52 333 000 0000" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Servicio de interés *</label>
+            <select name="servicio" required>
+              <option value="" disabled selected>Selecciona un servicio</option>
+              <option>Desarrollo a la Medida (Proyecto Cerrado)</option>
+              <option>Software como Servicio (Mensualidad)</option>
+              <option>Consultoría Tecnológica (Por Hora)</option>
+              <option>Automatización con Inteligencia Artificial</option>
+              <option>Aún no lo sé · Quiero asesoría</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Cuéntanos sobre tu proyecto *</label>
+            <textarea name="mensaje" placeholder="¿Qué problema quieres resolver? ¿Qué tipo de sistema necesitas? ¿Cuál es tu presupuesto aproximado?" required></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%">Enviar solicitud</button>
+          <div class="form-success" id="formSuccess">✅ ¡Mensaje enviado! Te contactaremos en menos de 24 horas.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#inicio" class="nav-logo">
+          <img src="assets/logo-color-icon.png" alt="SoftWaves" style="height:30px" onerror="this.style.display='none'" />
+          <span class="nav-logo-text">SoftWaves</span>
+        </a>
+        <p>Soluciones Digitales Inteligentes para PyMEs mexicanas. Arquitectura de microservicios para entregas más rápidas y económicas.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Empresa</h5>
+        <ul>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#equipo">Equipo</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Servicios</h5>
+        <ul>
+          <li><a href="#servicios">Desarrollo a la Medida</a></li>
+          <li><a href="#servicios">Software SaaS</a></li>
+          <li><a href="#servicios">Consultoría</a></li>
+          <li><a href="#servicios">IA & Automatización</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contacto</h5>
+        <ul>
+          <li><a href="mailto:softwaves.contacto@gmail.com">softwaves.contacto@gmail.com</a></li>
+          <li><a href="#contacto">Solicitar información</a></li>
+          <li><a href="#contacto">Diagnóstico gratuito</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 SoftWaves · Ameca, Jalisco, México · Todos los derechos reservados</p>
+      <div class="social-links">
+        <a href="#" class="social-link" title="LinkedIn">in</a>
+        <a href="#" class="social-link" title="Instagram">ig</a>
+        <a href="#" class="social-link" title="Facebook">fb</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════ -->
+<script>
+/* ── Theme ── */
+const html = document.documentElement;
+const themeBtn = document.getElementById('themeToggle');
+
+function applyTheme(t) {
+  html.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'dark' ? '🌙' : '☀️';
+  localStorage.setItem('sw-theme', t);
+  // update Chart.js defaults
+  const muted = t === 'dark' ? '#9B9BB8' : '#5B5B78';
+  const border = t === 'dark' ? 'rgba(107,33,168,0.15)' : 'rgba(107,33,168,0.1)';
+  if (window.Chart) { Chart.defaults.color = muted; Chart.defaults.borderColor = border; }
+}
+
+function toggleTheme() {
+  applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+}
+
+// init from storage
+const saved = localStorage.getItem('sw-theme') || 'dark';
+applyTheme(saved);
+
+/* ── Mobile menu ── */
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+/* ── Contact form ── */
+function submitForm(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const get = k => fd.get(k) || '';
+  const subject = encodeURIComponent(`SoftWaves — Solicitud de ${get('nombre')} (${get('empresa') || 'sin empresa'})`);
+  const body = encodeURIComponent(
+    `Nombre: ${get('nombre')}\nEmpresa: ${get('empresa') || 'No especificada'}\nCorreo: ${get('correo')}\nTeléfono: ${get('telefono') || 'No proporcionado'}\n\nServicio de interés: ${get('servicio')}\n\nMensaje:\n${get('mensaje')}`
+  );
+  window.location.href = `mailto:softwaves.contacto@gmail.com?subject=${subject}&body=${body}`;
+  document.getElementById('formSuccess').style.display = 'block';
+  e.target.reset();
+}
+
+/* ── Scroll animations (Intersection Observer — repeatable) ── */
+const HERO_REVEALS = new Set(document.querySelectorAll('.hero .reveal, .hero .stagger > *'));
+
+// Fires every time element enters/leaves viewport
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (HERO_REVEALS.has(e.target)) return; // hero handled separately
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    } else {
+      // reset so it animates again on next entry
+      e.target.classList.remove('visible');
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
+
+const staggerObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (HERO_REVEALS.has(e.target)) return;
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    } else {
+      e.target.classList.remove('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -24px 0px' });
+
+function initReveal() {
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (!HERO_REVEALS.has(el)) observer.observe(el);
+  });
+  document.querySelectorAll('.stagger').forEach(group => {
+    Array.from(group.children).forEach((child, i) => {
+      child.style.transitionDelay = `${i * 0.1}s`;
+      if (!HERO_REVEALS.has(child)) staggerObs.observe(child);
+    });
+  });
+}
+
+// Hero fires once on load (always in view at start)
+document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+  const base = parseFloat(el.style.transitionDelay) || i * 0.12;
+  setTimeout(() => el.classList.add('visible'), base * 1000 + 80);
+});
+
+// Re-trigger hero animations when nav links click back to #inicio
+document.querySelectorAll('a[href="#inicio"]').forEach(a => {
+  a.addEventListener('click', () => {
+    HERO_REVEALS.forEach(el => el.classList.remove('visible'));
+    document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+      const base = parseFloat(el.style.transitionDelay) || i * 0.12;
+      setTimeout(() => el.classList.add('visible'), base * 1000 + 120);
+    });
+  });
+});
+
+initReveal();
+
+/* ── Active nav ── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+
+/* ── Charts ── */
+Chart.defaults.font.family = 'Inter';
+
+function purple(a = 1) { return `rgba(107,33,168,${a})`; }
+function mid(a = 1)    { return `rgba(139,63,204,${a})`; }
+function gold(a = 1)   { return `rgba(212,160,23,${a})`; }
+
+// Registry: id → { config, instance }
+const chartRegistry = {};
+
+function makeChart(id, config) {
+  const instance = new Chart(document.getElementById(id), config);
+  chartRegistry[id] = { config, instance };
+}
+
+// Observer: cada vez que el canvas entra al viewport re-anima
+const chartObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    const rec = chartRegistry[e.target.id];
+    if (!rec) return;
+    if (e.isIntersecting) {
+      rec.instance.reset();   // regresa a 0
+      rec.instance.update();  // vuelve a animar
+    }
+  });
+}, { threshold: 0.25 });
+
+function registerChartAnim(id) {
+  const canvas = document.getElementById(id);
+  if (canvas) chartObs.observe(canvas);
+}
+
+// ── Sector donut ──
+makeChart('chartSector', {
+  type: 'doughnut',
+  data: {
+    labels: ['Comercio & Retail','Servicios Profesionales','Salud','Manufactura','Educación','Otros'],
+    datasets: [{
+      data: [7, 5, 4, 3, 3, 2],
+      backgroundColor: ['#6B21A8','#8B3FCC','#A855F7','#C084FC','#D4A017','#EAB308'],
+      borderWidth: 2, borderColor: 'transparent', hoverOffset: 10
+    }]
+  },
+  options: {
+    responsive: true,
+    animation: { animateRotate: true, animateScale: true, duration: 900, easing: 'easeOutQuart' },
+    plugins: { legend: { position: 'bottom', labels: { padding: 14, usePointStyle: true, pointStyleWidth: 8 } } }
+  }
+});
+
+// ── Ingresos donut ──
+makeChart('chartIngresos', {
+  type: 'doughnut',
+  data: {
+    labels: ['Proyecto Cerrado','Software SaaS','Consultoría','IA & Automatización'],
+    datasets: [{
+      data: [45, 30, 15, 10],
+      backgroundColor: ['#6B21A8','#D4A017','#8B3FCC','#EAB308'],
+      borderWidth: 2, borderColor: 'transparent', hoverOffset: 10
+    }]
+  },
+  options: {
+    responsive: true,
+    animation: { animateRotate: true, animateScale: true, duration: 900, easing: 'easeOutQuart' },
+    plugins: { legend: { position: 'bottom', labels: { padding: 14, usePointStyle: true, pointStyleWidth: 8 } } }
+  }
+});
+
+// ── Proyección anual ──
+makeChart('chartProyeccion', {
+  type: 'bar',
+  data: {
+    labels: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+    datasets: [
+      {
+        label: 'Ingresos',
+        data: [12000,16000,19500,32000,38000,46500,52000,58000,64000,70000,76000,79500],
+        backgroundColor: mid(0.75), borderRadius: 7, order: 2
+      },
+      {
+        label: 'Costos fijos',
+        data: [21000,21000,21000,21000,21000,21000,31800,31800,31800,31800,31800,31800],
+        type: 'line', borderColor: '#D4A017', backgroundColor: 'transparent',
+        borderWidth: 2.5, pointBackgroundColor: '#D4A017', pointRadius: 4, tension: 0.35, order: 1
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    animation: { duration: 1000, easing: 'easeOutCubic' },
+    scales: {
+      y: { ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'k' }, grid: { color: purple(0.08) } },
+      x: { grid: { display: false } }
+    },
+    plugins: { legend: { labels: { usePointStyle: true } } }
+  }
+});
+
+// ── Clientes acumulados ──
+makeChart('chartClientes', {
+  type: 'line',
+  data: {
+    labels: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+    datasets: [{
+      label: 'Clientes activos',
+      data: [1,2,3,4,6,7,9,11,13,15,17,18],
+      borderColor: '#8B3FCC', backgroundColor: mid(0.12),
+      fill: true, tension: 0.45,
+      pointBackgroundColor: '#8B3FCC', pointRadius: 5, pointHoverRadius: 7
+    }]
+  },
+  options: {
+    responsive: true,
+    animation: { duration: 1100, easing: 'easeOutCubic' },
+    scales: {
+      y: { beginAtZero: true, grid: { color: purple(0.08) }, ticks: { precision: 0 } },
+      x: { grid: { display: false } }
+    },
+    plugins: { legend: { display: false } }
+  }
+});
+
+// ── Tech stack ──
+makeChart('chartTech', {
+  type: 'bar',
+  indexAxis: 'y',
+  data: {
+    labels: ['NestJS','Vue / Quasar','PostgreSQL','Node.js','Docker','React','AWS','Flutter'],
+    datasets: [{
+      label: 'Proyectos',
+      data: [18,15,17,14,12,8,10,6],
+      backgroundColor: [
+        mid(0.85), gold(0.85), mid(0.7), gold(0.65),
+        mid(0.55), gold(0.55), mid(0.45), gold(0.4)
+      ],
+      borderRadius: 7
+    }]
+  },
+  options: {
+    responsive: true,
+    animation: { duration: 1000, easing: 'easeOutCubic' },
+    scales: {
+      x: { beginAtZero: true, grid: { color: purple(0.08) } },
+      y: { grid: { display: false } }
+    },
+    plugins: { legend: { display: false } }
+  }
+});
+
+// Registrar todos los canvas para re-animación
+['chartSector','chartIngresos','chartProyeccion','chartClientes','chartTech']
+  .forEach(registerChartAnim);
+</script>
+</body>
+</html>

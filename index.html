@@ -14,28 +14,33 @@
        VARIABLES — DARK (default)
     ═══════════════════════════════════════ */
     :root {
-      --purple:       #6B21A8;
-      --purple-mid:   #8B3FCC;
-      --purple-light: #A855F7;
-      --gold:         #D4A017;
-      --yellow:       #EAB308;
+      --purple:       #7f00b2;
+      --purple-dark:  #530084;
+      --purple-mid:   #9120bd;
+      --purple-light: #bc4ed8;
+      --blue:         #014ba0;
+      --blue-mid:     #1466c3;
+      --blue-light:   #5275c8;
+      --yellow:       #e8e800;
+      --yellow-bright:#ffff00;
+      --yellow-soft:  #ffff6a;
 
-      --bg:           #0A0A12;
-      --bg-card:      #12121E;
-      --bg-card2:     #1A1A2E;
-      --nav-bg:       rgba(10,10,18,0.88);
-      --text:         #F1F0FF;
-      --text-muted:   #9B9BB8;
-      --border:       rgba(107,33,168,0.30);
-      --border-hover: rgba(139,63,204,0.70);
-      --shadow:       rgba(0,0,0,0.5);
+      --bg:           #06001a;
+      --bg-card:      #0d0028;
+      --bg-card2:     #160038;
+      --nav-bg:       rgba(6,0,26,0.90);
+      --text:         #F0EFFF;
+      --text-muted:   #9B8AB8;
+      --border:       rgba(127,0,178,0.30);
+      --border-hover: rgba(145,32,189,0.70);
+      --shadow:       rgba(0,0,0,0.6);
       --grid-line:    rgba(255,255,255,0.04);
-      --hero-glow:    rgba(107,33,168,0.25);
-      --hero-glow2:   rgba(234,179,8,0.08);
-      --scroll-track: #0A0A12;
+      --hero-glow:    rgba(127,0,178,0.28);
+      --hero-glow2:   rgba(232,232,0,0.07);
+      --scroll-track: #06001a;
 
-      --grad:         linear-gradient(135deg,#6B21A8 0%,#A855A0 50%,#EAB308 100%);
-      --grad-text:    linear-gradient(90deg,#BF7FFF 0%,#E8B84B 100%);
+      --grad:         linear-gradient(135deg, #014ba0 0%, #7f00b2 55%, #cccc00 100%);
+      --grad-text:    linear-gradient(90deg, #5275c8 0%, #bc4ed8 50%, #e8e800 100%);
       --radius:       16px;
       --transition:   0.35s cubic-bezier(0.4,0,0.2,1);
     }
@@ -44,34 +49,34 @@
        VARIABLES — LIGHT
     ═══════════════════════════════════════ */
     [data-theme="light"] {
-      --bg:           #F5F3FF;
+      --bg:           #F0EEFF;
       --bg-card:      #FFFFFF;
-      --bg-card2:     #EDE9FE;
-      --nav-bg:       rgba(245,243,255,0.92);
-      --text:         #1A1A2E;
-      --text-muted:   #5B5B78;
-      --border:       rgba(107,33,168,0.18);
-      --border-hover: rgba(107,33,168,0.55);
-      --shadow:       rgba(107,33,168,0.12);
-      --grid-line:    rgba(107,33,168,0.06);
-      --hero-glow:    rgba(107,33,168,0.10);
-      --hero-glow2:   rgba(212,160,23,0.06);
-      --scroll-track: #F5F3FF;
-      --grad-text:    linear-gradient(90deg,#7B2FBE 0%,#B8860B 100%);
+      --bg-card2:     #E8DEFF;
+      --nav-bg:       rgba(240,238,255,0.92);
+      --text:         #0a001a;
+      --text-muted:   #4A3570;
+      --border:       rgba(127,0,178,0.18);
+      --border-hover: rgba(127,0,178,0.55);
+      --shadow:       rgba(127,0,178,0.12);
+      --grid-line:    rgba(127,0,178,0.06);
+      --hero-glow:    rgba(127,0,178,0.10);
+      --hero-glow2:   rgba(232,232,0,0.06);
+      --scroll-track: #F0EEFF;
+      --grad-text:    linear-gradient(90deg, #014ba0 0%, #7f00b2 50%, #999900 100%);
     }
 
     /* hero light-mode: fondo oscuro detrás del logo */
     [data-theme="light"] .hero-logo-wrap {
-      background: radial-gradient(circle, rgba(80,30,140,0.45) 0%, rgba(90,35,150,0.28) 55%, transparent 80%);
-      box-shadow: 0 0 60px 16px rgba(107,33,168,0.12);
+      background: radial-gradient(circle, rgba(83,0,132,0.42) 0%, rgba(1,75,160,0.18) 55%, transparent 80%);
+      box-shadow: 0 0 60px 16px rgba(127,0,178,0.14);
     }
     [data-theme="light"] .hero-logo-wrap img {
-      filter: drop-shadow(0 4px 20px rgba(180,100,255,0.5));
+      filter: drop-shadow(0 4px 20px rgba(145,32,189,0.5));
     }
-    [data-theme="light"] .orbit { border-color: rgba(107,33,168,0.22); }
+    [data-theme="light"] .orbit { border-color: rgba(127,0,178,0.22); }
     [data-theme="light"] .orbit-dot {
-      background: linear-gradient(135deg,#A855F7,#D4A017);
-      box-shadow: 0 0 8px rgba(168,85,247,0.6);
+      background: linear-gradient(135deg, #7f00b2, #e8e800);
+      box-shadow: 0 0 8px rgba(127,0,178,0.6);
     }
 
     /* ═══════════════════════════════════════
@@ -196,6 +201,7 @@
     .hero-bg {
       position: absolute; inset: 0;
       background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--hero-glow) 0%, transparent 70%),
+                  radial-gradient(ellipse 35% 35% at 15% 60%, rgba(1,75,160,0.15) 0%, transparent 60%),
                   radial-gradient(ellipse 40% 40% at 80% 80%, var(--hero-glow2) 0%, transparent 60%);
       transition: background var(--transition);
     }
@@ -214,7 +220,7 @@
       transition: border-color var(--transition);
     }
     .hero-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--purple-mid); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(139,63,204,0.6)} 50%{opacity:0.6;box-shadow:0 0 0 6px rgba(139,63,204,0)} }
+    @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(145,32,189,0.6)} 50%{opacity:0.6;box-shadow:0 0 0 6px rgba(145,32,189,0)} }
     .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 800; line-height: 1.1; margin-bottom: 24px; }
     .hero p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 36px; max-width: 520px; }
     .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
@@ -225,18 +231,18 @@
     .hero-visual { position: relative; display: flex; justify-content: center; align-items: center; }
     .hero-logo-wrap {
       width: 300px; height: 300px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(107,33,168,0.18) 0%, var(--hero-glow2) 60%, transparent 100%);
+      background: radial-gradient(circle, rgba(127,0,178,0.18) 0%, rgba(1,75,160,0.08) 60%, transparent 100%);
       display: flex; align-items: center; justify-content: center;
       animation: float 6s ease-in-out infinite;
       position: relative; z-index: 1;
     }
-    .hero-logo-wrap img { width: 240px; height: 240px; object-fit: contain; filter: drop-shadow(0 0 32px rgba(139,63,204,0.4)); }
+    .hero-logo-wrap img { width: 240px; height: 240px; object-fit: contain; filter: drop-shadow(0 0 32px rgba(145,32,189,0.45)); }
     @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
-    .orbit { position: absolute; border-radius: 50%; border: 1px dashed rgba(107,33,168,0.28); animation: spin linear infinite; }
+    .orbit { position: absolute; border-radius: 50%; border: 1px dashed rgba(127,0,178,0.28); animation: spin linear infinite; }
     .orbit-1 { width: 370px; height: 370px; animation-duration: 22s; }
     .orbit-2 { width: 460px; height: 460px; animation-duration: 34s; animation-direction: reverse; }
     @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-    .orbit-dot { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: var(--grad); top: -5px; left: 50%; margin-left: -5px; box-shadow: 0 0 10px rgba(139,63,204,0.8); }
+    .orbit-dot { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: var(--grad); top: -5px; left: 50%; margin-left: -5px; box-shadow: 0 0 10px rgba(145,32,189,0.8); }
 
     /* ═══════════════════════════════════════
        WAVE ELEMENTS
@@ -251,7 +257,7 @@
     .sonar-ring {
       position: absolute;
       border-radius: 50%;
-      border: 1.5px solid rgba(139,63,204,0.5);
+      border: 1.5px solid rgba(145,32,189,0.5);
       animation: sonar 3.6s ease-out infinite;
     }
     .sonar-ring:nth-child(1) { animation-delay: 0s; }
@@ -278,8 +284,8 @@
       transition: stroke var(--transition);
     }
     .wave-divider .wave-path-b {
-      fill: none; stroke: var(--purple-mid); stroke-width: 1;
-      opacity: 0.25;
+      fill: none; stroke: var(--blue-mid); stroke-width: 1;
+      opacity: 0.30;
       stroke-dasharray: 6 10;
       transition: stroke var(--transition);
       animation: wave-div-move 14s linear infinite reverse;
@@ -296,24 +302,24 @@
     }
     .hero-waves svg { width: 200%; height: 100%; }
     .hero-wave-path-1 {
-      fill: none; stroke: rgba(107,33,168,0.15); stroke-width: 2;
+      fill: none; stroke: rgba(127,0,178,0.18); stroke-width: 2;
       animation: wave-move 8s linear infinite;
     }
     .hero-wave-path-2 {
-      fill: none; stroke: rgba(212,160,23,0.10); stroke-width: 1.5;
+      fill: none; stroke: rgba(1,75,160,0.14); stroke-width: 1.5;
       animation: wave-move 12s linear infinite reverse;
     }
     .hero-wave-path-3 {
-      fill: none; stroke: rgba(139,63,204,0.08); stroke-width: 1;
+      fill: none; stroke: rgba(232,232,0,0.10); stroke-width: 1;
       animation: wave-move 6s linear infinite;
     }
     @keyframes wave-move {
       0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
-    [data-theme="light"] .hero-wave-path-1 { stroke: rgba(107,33,168,0.12); }
-    [data-theme="light"] .hero-wave-path-2 { stroke: rgba(212,160,23,0.10); }
-    [data-theme="light"] .hero-wave-path-3 { stroke: rgba(139,63,204,0.07); }
+    [data-theme="light"] .hero-wave-path-1 { stroke: rgba(127,0,178,0.12); }
+    [data-theme="light"] .hero-wave-path-2 { stroke: rgba(1,75,160,0.10); }
+    [data-theme="light"] .hero-wave-path-3 { stroke: rgba(232,232,0,0.12); }
 
     /* ═══════════════════════════════════════
        ABOUT
@@ -412,7 +418,15 @@
     .team-info { padding:20px; }
     .team-info h4 { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.92rem; margin-bottom:4px; }
     .team-info .role { font-size:0.75rem; color:var(--purple-mid); font-weight:600; margin-bottom:8px; }
-    .team-info .degree { font-size:0.73rem; color:var(--text-muted); line-height:1.5; }
+    .team-info .degree { font-size:0.73rem; color:var(--text-muted); line-height:1.5; margin-bottom:12px; }
+    .portfolio-btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-top: 4px; padding: 7px 14px; border-radius: 50px;
+      font-size: 0.75rem; font-weight: 600; text-decoration: none;
+      background: var(--grad); color: #fff;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .portfolio-btn:hover { opacity: 0.88; transform: translateY(-2px); }
 
     /* ═══════════════════════════════════════
        CONTACT
@@ -834,6 +848,7 @@
           <h4>Ing. Ignacio Andrade Salazar</h4>
           <div class="role">CEO & Fundador</div>
           <div class="degree">Lic. en Administración · Ing. en Electrónica y Computación · M.I.S. en curso</div>
+          <a href="https://minato97.github.io/softwaves-portafolio-ignacio-andrade/" target="_blank" rel="noopener" class="portfolio-btn">Ver portafolio →</a>
         </div>
       </div>
 
@@ -1141,9 +1156,11 @@ window.addEventListener('scroll', () => {
 /* ── Charts ── */
 Chart.defaults.font.family = 'Inter';
 
-function purple(a = 1) { return `rgba(107,33,168,${a})`; }
-function mid(a = 1)    { return `rgba(139,63,204,${a})`; }
-function gold(a = 1)   { return `rgba(212,160,23,${a})`; }
+function purple(a = 1) { return `rgba(127,0,178,${a})`; }
+function mid(a = 1)    { return `rgba(145,32,189,${a})`; }
+function blue(a = 1)   { return `rgba(1,75,160,${a})`; }
+function blueMid(a=1)  { return `rgba(20,102,195,${a})`; }
+function yellow(a = 1) { return `rgba(232,232,0,${a})`; }
 
 // Registry: id → { config, instance }
 const chartRegistry = {};
@@ -1177,7 +1194,7 @@ makeChart('chartSector', {
     labels: ['Comercio & Retail','Servicios Profesionales','Salud','Manufactura','Educación','Otros'],
     datasets: [{
       data: [7, 5, 4, 3, 3, 2],
-      backgroundColor: ['#6B21A8','#8B3FCC','#A855F7','#C084FC','#D4A017','#EAB308'],
+      backgroundColor: ['#7f00b2','#014ba0','#9120bd','#1466c3','#cccc00','#bc4ed8'],
       borderWidth: 2, borderColor: 'transparent', hoverOffset: 10
     }]
   },
@@ -1195,7 +1212,7 @@ makeChart('chartIngresos', {
     labels: ['Proyecto Cerrado','Software SaaS','Consultoría','IA & Automatización'],
     datasets: [{
       data: [45, 30, 15, 10],
-      backgroundColor: ['#6B21A8','#D4A017','#8B3FCC','#EAB308'],
+      backgroundColor: ['#7f00b2','#014ba0','#cccc00','#9120bd'],
       borderWidth: 2, borderColor: 'transparent', hoverOffset: 10
     }]
   },
@@ -1220,8 +1237,8 @@ makeChart('chartProyeccion', {
       {
         label: 'Costos fijos',
         data: [21000,21000,21000,21000,21000,21000,31800,31800,31800,31800,31800,31800],
-        type: 'line', borderColor: '#D4A017', backgroundColor: 'transparent',
-        borderWidth: 2.5, pointBackgroundColor: '#D4A017', pointRadius: 4, tension: 0.35, order: 1
+        type: 'line', borderColor: '#cccc00', backgroundColor: 'transparent',
+        borderWidth: 2.5, pointBackgroundColor: '#cccc00', pointRadius: 4, tension: 0.35, order: 1
       }
     ]
   },
@@ -1229,7 +1246,7 @@ makeChart('chartProyeccion', {
     responsive: true,
     animation: { duration: 1000, easing: 'easeOutCubic' },
     scales: {
-      y: { ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'k' }, grid: { color: purple(0.08) } },
+      y: { ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'k' }, grid: { color: purple(0.10) } },
       x: { grid: { display: false } }
     },
     plugins: { legend: { labels: { usePointStyle: true } } }
@@ -1244,16 +1261,16 @@ makeChart('chartClientes', {
     datasets: [{
       label: 'Clientes activos',
       data: [1,2,3,4,6,7,9,11,13,15,17,18],
-      borderColor: '#8B3FCC', backgroundColor: mid(0.12),
+      borderColor: '#9120bd', backgroundColor: blue(0.12),
       fill: true, tension: 0.45,
-      pointBackgroundColor: '#8B3FCC', pointRadius: 5, pointHoverRadius: 7
+      pointBackgroundColor: '#9120bd', pointRadius: 5, pointHoverRadius: 7
     }]
   },
   options: {
     responsive: true,
     animation: { duration: 1100, easing: 'easeOutCubic' },
     scales: {
-      y: { beginAtZero: true, grid: { color: purple(0.08) }, ticks: { precision: 0 } },
+      y: { beginAtZero: true, grid: { color: purple(0.10) }, ticks: { precision: 0 } },
       x: { grid: { display: false } }
     },
     plugins: { legend: { display: false } }
@@ -1270,8 +1287,8 @@ makeChart('chartTech', {
       label: 'Proyectos',
       data: [18,15,17,14,12,8,10,6],
       backgroundColor: [
-        mid(0.85), gold(0.85), mid(0.7), gold(0.65),
-        mid(0.55), gold(0.55), mid(0.45), gold(0.4)
+        mid(0.90), blue(0.90), mid(0.75), blueMid(0.80),
+        purple(0.65), yellow(0.70), mid(0.50), blueMid(0.55)
       ],
       borderRadius: 7
     }]
@@ -1280,7 +1297,7 @@ makeChart('chartTech', {
     responsive: true,
     animation: { duration: 1000, easing: 'easeOutCubic' },
     scales: {
-      x: { beginAtZero: true, grid: { color: purple(0.08) } },
+      x: { beginAtZero: true, grid: { color: purple(0.10) } },
       y: { grid: { display: false } }
     },
     plugins: { legend: { display: false } }

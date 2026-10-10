@@ -79,6 +79,19 @@
       box-shadow: 0 0 8px rgba(127,0,178,0.6);
     }
 
+
+    /* ═══ LANDING PAGES ═══ */
+    .lp-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:48px; }
+    .lp-demos { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:20px; }
+    .lp-demo { display:block; text-decoration:none; color:var(--text); background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:22px 14px; text-align:center; transition:transform .2s,border-color .2s; }
+    .lp-demo:hover { transform:translateY(-5px); border-color:var(--border-hover); }
+    .lp-demo span { display:block; font-size:2rem; margin-bottom:6px; }
+    .lp-demo small { color:var(--text-muted); font-size:.75rem; }
+    .lp-sub { margin-top:56px; font-family:'Space Grotesk',sans-serif; font-size:1.25rem; }
+    .wa-float { position:fixed; right:20px; bottom:20px; width:56px; height:56px; border-radius:50%; background:#25d366; display:grid; place-items:center; font-size:1.7rem; text-decoration:none; box-shadow:0 8px 24px rgba(0,0,0,.4); z-index:90; transition:transform .2s; }
+    .wa-float:hover { transform:scale(1.1); }
+    @media (max-width:900px){ .lp-grid{grid-template-columns:1fr;} .lp-demos{grid-template-columns:repeat(2,1fr);} }
+
     /* ═══════════════════════════════════════
        RESET & BASE
     ═══════════════════════════════════════ */
@@ -531,6 +544,7 @@
   <a href="#inicio"    onclick="toggleMenu()">Inicio</a>
   <a href="#nosotros"  onclick="toggleMenu()">Nosotros</a>
   <a href="#servicios" onclick="toggleMenu()">Servicios</a>
+  <a href="#landing"   onclick="toggleMenu()">Landing pages</a>
   <a href="#proyectos" onclick="toggleMenu()">Proyectos</a>
   <a href="#equipo"    onclick="toggleMenu()">Equipo</a>
   <a href="#contacto"  onclick="toggleMenu()">Contacto</a>
@@ -546,6 +560,7 @@
     <ul class="nav-links">
       <li><a href="#nosotros">Nosotros</a></li>
       <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#landing">Landing pages</a></li>
       <li><a href="#proyectos">Proyectos</a></li>
       <li><a href="#equipo">Equipo</a></li>
       <li><a href="#contacto">Contacto</a></li>
@@ -749,6 +764,67 @@
         </ul>
         <div class="service-price">Desde <strong>$1,500</strong> hasta <strong>$8,000 MXN/mes</strong></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LANDING PAGES ══ -->
+<section class="section" id="landing">
+  <div class="container">
+    <p class="section-label reveal">Landing pages</p>
+    <h2 class="section-title reveal" style="transition-delay:0.1s">Tu página lista en 5 días,<br/><span class="grad-text">clientes por WhatsApp</span></h2>
+    <p class="section-sub reveal" style="transition-delay:0.15s">Diseño y programación de landing pages para negocios locales: rápidas, adaptadas a celular y con botón directo a tu WhatsApp. Paquetes cerrados, sin sorpresas.</p>
+    <div class="lp-grid stagger">
+      <div class="service-card">
+        <div class="service-tag">Express</div>
+        <span class="service-icon">⚡</span>
+        <h3>Landing Express</h3>
+        <p>Una página profesional para empezar a recibir clientes.</p>
+        <ul class="service-list">
+          <li>1 landing responsive</li>
+          <li>Botón de WhatsApp, mapa y formulario</li>
+          <li>Entrega en 3-5 días</li>
+          <li>50% anticipo · 50% al entregar</li>
+        </ul>
+        <div class="service-price">Desde <strong>$2,500 MXN</strong></div>
+        <a href="https://wa.me/523751313718?text=Landing%20Express" class="btn-primary" style="margin-top:18px">Lo quiero</a>
+      </div>
+      <div class="service-card featured">
+        <div class="service-tag gold">Pro</div>
+        <span class="service-icon">🚀</span>
+        <h3>Landing Pro</h3>
+        <p>Para negocios que quieren aparecer en Google y medir resultados.</p>
+        <ul class="service-list">
+          <li>Todo lo de Express</li>
+          <li>SEO básico y Google Analytics</li>
+          <li>Píxel de Facebook</li>
+          <li>2 rondas de cambios</li>
+        </ul>
+        <div class="service-price">Desde <strong>$4,500 MXN</strong></div>
+        <a href="https://wa.me/523751313718?text=Landing%20Pro" class="btn-primary" style="margin-top:18px">Lo quiero</a>
+      </div>
+      <div class="service-card">
+        <div class="service-tag">Pro + Anuncios</div>
+        <span class="service-icon">📣</span>
+        <h3>Landing Pro con Anuncios</h3>
+        <p>Tu página y tu primera campaña en Facebook e Instagram.</p>
+        <ul class="service-list">
+          <li>Todo lo de Pro</li>
+          <li>Campaña configurada en Meta Ads</li>
+          <li>Audiencia local segmentada</li>
+          <li>Inversión en anuncios aparte</li>
+        </ul>
+        <div class="service-price">Desde <strong>$6,500 MXN</strong></div>
+        <a href="https://wa.me/523751313718?text=Landing%20Pro%20con%20Anuncios" class="btn-primary" style="margin-top:18px">Lo quiero</a>
+      </div>
+    </div>
+    <h3 class="lp-sub reveal">Mira ejemplos por giro</h3>
+    <div class="lp-demos stagger">
+      <a class="lp-demo" href="demos/01-dental/" target="_blank" rel="noopener"><span>🦷</span>Clínica dental<br/><small>Ver demo</small></a>
+      <a class="lp-demo" href="demos/02-restaurante/" target="_blank" rel="noopener"><span>🍽️</span>Restaurante<br/><small>Ver demo</small></a>
+      <a class="lp-demo" href="demos/03-gimnasio/" target="_blank" rel="noopener"><span>🏋️</span>Gimnasio<br/><small>Ver demo</small></a>
+      <a class="lp-demo" href="demos/04-taller/" target="_blank" rel="noopener"><span>🔧</span>Taller mecánico<br/><small>Ver demo</small></a>
+      <a class="lp-demo" href="demos/05-barberia/" target="_blank" rel="noopener"><span>💈</span>Barbería<br/><small>Ver demo</small></a>
     </div>
   </div>
 </section>
@@ -1312,5 +1388,6 @@ makeChart('chartTech', {
 ['chartSector','chartIngresos','chartProyeccion','chartClientes','chartTech']
   .forEach(registerChartAnim);
 </script>
+<a class="wa-float" href="https://wa.me/523751313718?text=Hola,%20quiero%20informaci%C3%B3n%20de%20SoftWaves" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
 </body>
 </html>
